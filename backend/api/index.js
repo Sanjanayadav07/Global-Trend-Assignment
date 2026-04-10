@@ -16,10 +16,18 @@ connectDB();
 // Middlewares
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://global-trend-assignment-navy.vercel.app", 
-    ],
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+
+      if (
+        origin.includes("localhost") ||
+        origin.includes("vercel.app")
+      ) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
   })
 );
@@ -31,7 +39,7 @@ app.use(cookieParser());
 app.use("/api/users", userRoutes);
 app.use("/api/tasks", taskRoutes);
 
-// Root route
+// Root
 app.get("/", (req, res) => {
   res.json({
     success: true,
@@ -39,5 +47,5 @@ app.get("/", (req, res) => {
   });
 });
 
-// ❗ VERY IMPORTANT
+// ❗ NO app.listen here
 export default app;
