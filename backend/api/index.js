@@ -16,18 +16,7 @@ connectDB();
 // Middlewares
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (!origin) return callback(null, true);
-
-      if (
-        origin.includes("localhost") ||
-        origin.includes("vercel.app")
-      ) {
-        return callback(null, true);
-      }
-
-      return callback(new Error("Not allowed by CORS"));
-    },
+    origin: true, // allow all vercel domains
     credentials: true,
   })
 );
