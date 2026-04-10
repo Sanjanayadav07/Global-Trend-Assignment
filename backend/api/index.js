@@ -18,7 +18,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://global-trend-assignment-k7ce.vercel.app", // frontend URL
+      "https://global-trend-assignment-navy.vercel.app", 
     ],
     credentials: true,
   })
