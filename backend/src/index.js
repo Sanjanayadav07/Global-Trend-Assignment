@@ -1,20 +1,17 @@
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
-import connectDB from "./db/db.js";
-import userRoutes from "./routes/user.route.js";
-import taskRoutes from "./routes/task.route.js";
 import cookieParser from "cookie-parser";
 
-dotenv.config();
+import userRoutes from "./routes/user.route.js";
+import taskRoutes from "./routes/task.route.js";
 
 const app = express();
-const PORT = process.env.PORT || 5000;
-
-// Connect DB
-connectDB();
 
 // Middlewares
+app.use(express.json());
+app.use(cookieParser());
+
+// CORS setup (IMPORTANT for frontend + cookies)
 app.use(
   cors({
     origin: [
@@ -25,22 +22,16 @@ app.use(
   })
 );
 
-app.use(express.json());
-app.use(cookieParser());
-
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/tasks", taskRoutes);
 
-// Root
+// Health check
 app.get("/", (req, res) => {
   res.json({
     success: true,
-    message: "Server running locally",
+    message: "API running successfully",
   });
 });
 
-// ✅ LOCAL ONLY
-app.listen(PORT, () => {
-  console.log(`🚀 Server started on port ${PORT}`);
-});
+export default app;
