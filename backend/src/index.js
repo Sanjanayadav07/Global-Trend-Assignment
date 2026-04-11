@@ -16,6 +16,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
+      "https://global-trend-assignment-frontend.vercel.app",
     ],
     credentials: true,
   })
