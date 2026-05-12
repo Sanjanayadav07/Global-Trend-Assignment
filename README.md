@@ -40,9 +40,12 @@ A full-stack Task Manager application that allows users to create, view, update,
 ### Auth
 - POST `/api/users/login`
 - POST `/api/users/logout`
+- POST `/api/users/logout`
 
 ### Tasks
 - GET `/api/tasks/get-tasks`
+- GET `/api/tasks/get-tasks?status=completed`
+- GET `/api/tasks/get-tasks?status=pending`
 - POST `/api/tasks/create-task`
 - PUT `/api/tasks/update-task/:id`
 - DELETE `/api/tasks/delete-task/:id`
